@@ -80,7 +80,10 @@ def http_json(
         raw = exc.read()
         status = exc.code
     except (URLError, TimeoutError, OSError) as exc:
-        raise BotError(f"Не удалось подключиться к {url}: {exc}") from exc
+        raise BotError(
+    f"Не удалось подключиться к внешнему API "
+    f"(сетевая ошибка: {type(exc).__name__})."
+) from None
 
     if not raw:
         return status, None
