@@ -1,0 +1,23 @@
+{
+  "twitch": {
+    "channel_login": "twitch_username",
+    "client_id": "PASTE_TWITCH_CLIENT_ID",
+    "client_secret": "PASTE_TWITCH_CLIENT_SECRET",
+    "poll_interval_seconds": 60,
+    "notify_if_live_on_startup": false
+  },
+  "telegram": {
+    "enabled": true,
+    "bot_token": "PASTE_TELEGRAM_BOT_TOKEN",
+    "chat_id": "PASTE_CHAT_ID"
+  },
+  "discord": {
+    "enabled": true,
+    "webhook_url": "PASTE_DISCORD_WEBHOOK_URL"
+  },
+  "messages": {
+    "start": "🔴 {channel_name} НАЧАЛ(А) СТРИМ!\n\n🎮 {game}\n📝 {title}\n👀 Зрителей: {viewers}\n\nСмотреть: {url}",
+    "end": "⚫️ {channel_name} ЗАВЕРШИЛ(А) СТРИМ.\n\nПоследняя категория: {game}\nПоследнее название: {title}\n\nКанал: {url}"
+  },
+  "state_file": "state.json"
+}

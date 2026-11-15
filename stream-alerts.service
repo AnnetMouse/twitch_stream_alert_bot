@@ -1,0 +1,15 @@
+[Unit]
+Description=Twitch stream alerts for Telegram and Discord
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/twitch-stream-alert-bot
+ExecStart=/usr/bin/python3 /opt/twitch-stream-alert-bot/bot.py
+Restart=always
+RestartSec=10
+User=streamalerts
+
+[Install]
+WantedBy=multi-user.target
