@@ -1,0 +1,62 @@
+
+name: Twitch stream alerts
+
+on:
+  schedule:
+    - cron: "2-59/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: twitch-stream-alerts
+  cancel-in-progress: false
+
+jobs:
+  check-stream:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check Twitch and send alerts
+        env:
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+          TWITCH_CHANNEL_LOGIN: ${{ secrets.TWITCH_CHANNEL_LOGIN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python bot.py --once
+
+      - name: Save state and maintain schedule
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          now="$(date -u +%s)"
+          last="$(cat .github/last-activity-epoch 2>/dev/null || echo 0)"
+          if ! [[ "$last" =~ ^[0-9]+$ ]]; then last=0; fi
+
+          if (( now - last >= 30 * 24 * 60 * 60 )); then
+            printf '%s\n' "$now" > .github/last-activity-epoch
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add state.json .github/last-activity-epoch
+
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: persist Twitch monitor state"
+            git push
+          fi
