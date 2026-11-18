@@ -1,6 +1,39 @@
 {
   "known": true,
-  "online": false,
-  "stream": {},
-  "pending": []
+  "online": true,
+  "stream": {
+    "user_name": "annet_mouse",
+    "user_login": "annet_mouse",
+    "title": "Сюжет с нуля | Первое выживание в Пустоши | Fallout 4  | #19",
+    "game_name": "Fallout 4",
+    "started_at": "2026-11-18T15:00:06Z"
+  },
+  "pending": [
+    {
+      "kind": "start",
+      "stream": {
+        "id": "317342715220",
+        "user_id": "1112100256",
+        "user_login": "annet_mouse",
+        "user_name": "annet_mouse",
+        "game_id": "489776",
+        "game_name": "Fallout 4",
+        "type": "live",
+        "title": "Сюжет с нуля | Первое выживание в Пустоши | Fallout 4  | #19",
+        "viewer_count": 0,
+        "started_at": "2026-11-18T15:00:06Z",
+        "language": "ru",
+        "thumbnail_url": "https://static-cdn.jtvnw.net/previews-ttv/live_user_annet_mouse-{width}x{height}.jpg",
+        "tag_ids": [],
+        "tags": [
+          "Русский",
+          "русскоязычный"
+        ],
+        "is_mature": false
+      },
+      "telegram_done": true,
+      "discord_done": false,
+      "created_at": "2026-11-18T15:01:50.824995+00:00"
+    }
+  ]
 }
